@@ -9,9 +9,7 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import BusinessIcon from '@mui/icons-material/Business';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import InstagramIcon from '@mui/icons-material/Instagram';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import Brightness2Icon from '@mui/icons-material/Brightness2';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -55,14 +53,38 @@ function App() {
   };
 
   const randomEvents = [
-    "The team successfully completed the initial project phase, marking a significant milestone.",
-    "A major bug was identified and fixed, which improved the overall system performance.",
-    "User feedback indicated a need for additional features, leading to a new development sprint.",
-    "The client requested urgent changes to the project scope, necessitating immediate adjustments.",
-    "An unexpected server outage occurred, but the team managed to restore service promptly.",
-    "New integrations were added to enhance the product's functionality and user experience.",
-    "The project team held a review meeting to discuss progress and outline the next steps.",
-    "A comprehensive testing phase concluded with positive results, validating the project's success."
+    {
+      company: "Company A",
+      description: "Led a team of engineers to develop a cloud-based solution.",
+    },
+    {
+      company: "",
+      description: "Currently lead a team of engineers and compliance specialists who develop Palantir's GxP platform for clinical use-cases ranging from site-selection to RWE analysis.",
+    },
+    {
+      company: "",
+      description: "Currently lead a team of extremely talented architects and account managers to build out product demos (Titan Industries) that show end to end product capability for Palantir's AI Platform.",
+    },
+    {
+      company: "",
+      description: "Developed applications for the NHS at the brink of and through COVID-19 that allowed for equitable allocation of ICU nad PPE equipment.",
+    },
+    {
+      company: "",
+      description: "Developed User applications that are currently thwarting nation state cyber-security attacks.",
+    },
+    {
+      company: "",
+      description: "Wrote data pipelines and models that detected fraud amongst trillion row transaction datasets.",
+    },
+    {
+      company: "Digital Control Inc.",
+      description: "Programmed a custom transmitter / reciever for directional drilling.",
+    },
+    {
+      company: "Helitrak Inc.",
+      description: "Programmed Autopilots and Safety Trigger for the Collective for R22 and R44 Helicopters.",
+    },
   ];
 
   const lightTheme = createTheme({
@@ -142,14 +164,8 @@ function App() {
                   <IconButton href="https://twitter.com" target="_blank" aria-label="Twitter">
                     <TwitterIcon />
                   </IconButton>
-                  <IconButton href="https://facebook.com" target="_blank" aria-label="Facebook">
-                    <FacebookIcon />
-                  </IconButton>
                   <IconButton href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
                     <LinkedInIcon />
-                  </IconButton>
-                  <IconButton href="https://instagram.com" target="_blank" aria-label="Instagram">
-                    <InstagramIcon />
                   </IconButton>
                 </Box>
               </Box>
@@ -163,8 +179,11 @@ function App() {
                       {index < randomEvents.length - 1 && <TimelineConnector />}
                     </TimelineSeparator>
                     <TimelineContent>
-                      <Typography variant="body1" paragraph sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
-                        {event}
+                      <Typography variant="h6" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                        {event.company}
+                      </Typography>
+                      <Typography variant="body2" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                        {event.description}
                       </Typography>
                     </TimelineContent>
                   </TimelineItem>
