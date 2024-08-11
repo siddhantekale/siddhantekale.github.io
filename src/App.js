@@ -61,7 +61,7 @@ function App() {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            position: 'sticky',
+            // position: 'sticky',
             top: 0,
             zIndex: 1,
             backgroundColor: '#f5f5f5',
