@@ -8,6 +8,7 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import BusinessIcon from '@mui/icons-material/Business';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import WbSunnyIcon from '@mui/icons-material/WbSunny';
@@ -56,34 +57,42 @@ function App() {
     {
       company: "Company A",
       description: "Led a team of engineers to develop a cloud-based solution.",
+      icon: AddCircleIcon,
     },
     {
       company: "",
       description: "Currently lead a team of engineers and compliance specialists who develop Palantir's GxP platform for clinical use-cases ranging from site-selection to RWE analysis.",
+      icon: AddCircleIcon,
     },
     {
       company: "",
       description: "Currently lead a team of extremely talented architects and account managers to build out product demos (Titan Industries) that show end to end product capability for Palantir's AI Platform.",
+      icon: AddCircleIcon,
     },
     {
       company: "",
       description: "Developed applications for the NHS at the brink of and through COVID-19 that allowed for equitable allocation of ICU nad PPE equipment.",
+      icon: AddCircleIcon,
     },
     {
       company: "",
       description: "Developed User applications that are currently thwarting nation state cyber-security attacks.",
+      icon: AddCircleIcon,
     },
     {
       company: "",
       description: "Wrote data pipelines and models that detected fraud amongst trillion row transaction datasets.",
+      icon: AddCircleIcon,
     },
     {
       company: "Digital Control Inc.",
       description: "Programmed a custom transmitter / reciever for directional drilling.",
+      icon: BusinessIcon,
     },
     {
       company: "Helitrak Inc.",
       description: "Programmed Autopilots and Safety Trigger for the Collective for R22 and R44 Helicopters.",
+      icon: BusinessIcon,
     },
   ];
 
@@ -174,7 +183,7 @@ function App() {
                   <TimelineItem key={index}>
                     <TimelineSeparator>
                       <TimelineDot sx={{ bgcolor: 'primary.main' }}>
-                        <BusinessIcon sx={{ color: 'white' }} />
+                        <event.icon sx={{ color: 'white', fontSize: 10 }} />
                       </TimelineDot>
                       {index < randomEvents.length - 1 && <TimelineConnector />}
                     </TimelineSeparator>
