@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Grid, Box, Card, CardContent, Typography, Avatar, IconButton } from '@mui/material';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline, Grid, Box, Card, CardContent, Typography, Avatar, IconButton, Switch } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -11,8 +12,13 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import WbSunnyIcon from '@mui/icons-material/WbSunny';
+import Brightness2Icon from '@mui/icons-material/Brightness2';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
   const [items, setItems] = useState(Array.from({ length: 10 }, (_, i) => `Card ${i + 1}`));
 
   const handleScroll = (containerRef) => {
@@ -38,6 +44,16 @@ function App() {
     };
   }, []);
 
+  const handleArrowClick = (ref, direction) => {
+    if (ref.current) {
+      const { scrollLeft, clientWidth } = ref.current;
+      ref.current.scrollTo({
+        left: scrollLeft + (direction === 'left' ? -clientWidth : clientWidth),
+        behavior: 'smooth',
+      });
+    }
+  };
+
   const randomEvents = [
     "The team successfully completed the initial project phase, marking a significant milestone.",
     "A major bug was identified and fixed, which improved the overall system performance.",
@@ -49,164 +65,219 @@ function App() {
     "A comprehensive testing phase concluded with positive results, validating the project's success."
   ];
 
+  const lightTheme = createTheme({
+    palette: {
+      mode: 'light',
+    },
+  });
+
+  const darkTheme = createTheme({
+    palette: {
+      mode: 'dark',
+      background: {
+        default: '#121212',
+        paper: '#1d1d1d',
+      },
+      text: {
+        primary: '#ffffff',
+      },
+    },
+  });
+
   return (
-    <Grid
-      container
-      direction="column"
-      spacing={2}
-      style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-    >
-      {/* First Row */}
-      <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
-        <Box
-          sx={{
-            p: 2,
-            maxWidth: '1200px',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            position: 'sticky',
-            top: 0,
-            zIndex: 1,
-            backgroundColor: 'transparent', // Removed the gray background
-          }}
-        >
-          <Typography variant="h4" gutterBottom>
-            My Story
-          </Typography>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+      <CssBaseline />
+      <Grid
+        container
+        direction="column"
+        spacing={2}
+        style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        {/* Dark Mode Toggle */}
+        <Grid item xs={12} style={{ width: '100%', textAlign: 'right', padding: '10px' }}>
+          <IconButton onClick={() => setDarkMode(!darkMode)} color="inherit">
+            {darkMode ? <WbSunnyIcon /> : <Brightness2Icon />}
+          </IconButton>
+          <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+        </Grid>
+
+        {/* First Row */}
+        <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
           <Box
             sx={{
-              width: '100%',
-              maxWidth: '800px',
-              bgcolor: 'background.paper',
-              flexGrow: 1,
-              overflowX: 'auto',
+              p: 2,
+              maxWidth: '1200px',
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              position: 'sticky',
+              top: 0,
+              zIndex: 1,
+              backgroundColor: 'transparent',
+            }}
+          >
+            <Typography variant="h4" gutterBottom>
+              Siddhant Ekale
+            </Typography>
+            <Box
+              sx={{
+                width: '100%',
+                maxWidth: '800px',
+                bgcolor: 'background.paper',
+                flexGrow: 1,
+                overflowX: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                p: 2,
+              }}
+            >
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                <Avatar
+                  alt="Placeholder"
+                  src="https://via.placeholder.com/150"
+                  sx={{ width: 100, height: 100, mr: 2 }}
+                />
+                <Box>
+                  <IconButton href="https://twitter.com" target="_blank" aria-label="Twitter">
+                    <TwitterIcon />
+                  </IconButton>
+                  <IconButton href="https://facebook.com" target="_blank" aria-label="Facebook">
+                    <FacebookIcon />
+                  </IconButton>
+                  <IconButton href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                    <LinkedInIcon />
+                  </IconButton>
+                  <IconButton href="https://instagram.com" target="_blank" aria-label="Instagram">
+                    <InstagramIcon />
+                  </IconButton>
+                </Box>
+              </Box>
+              <Timeline position="alternate">
+                {randomEvents.map((event, index) => (
+                  <TimelineItem key={index}>
+                    <TimelineSeparator>
+                      <TimelineDot sx={{ bgcolor: 'primary.main' }}>
+                        <BusinessIcon sx={{ color: 'white' }} />
+                      </TimelineDot>
+                      {index < randomEvents.length - 1 && <TimelineConnector />}
+                    </TimelineSeparator>
+                    <TimelineContent>
+                      <Typography variant="body1" paragraph sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                        {event}
+                      </Typography>
+                    </TimelineContent>
+                  </TimelineItem>
+                ))}
+              </Timeline>
+            </Box>
+          </Box>
+        </Grid>
+
+        {/* Second Row */}
+        <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
+          <Box
+            sx={{
+              p: 2,
+              maxWidth: '1200px',
+              position: 'sticky',
+              top: 0,
+              zIndex: 1,
+              backgroundColor: 'background.paper',
+            }}
+          >
+            <Typography variant="h4" gutterBottom>
+              Derivational Thinking
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              maxWidth: '1200px',
               p: 2,
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Avatar
-                alt="Placeholder"
-                src="https://via.placeholder.com/150"
-                sx={{ width: 100, height: 100, mr: 2 }}
-              />
-              <Box>
-                <IconButton href="https://twitter.com" target="_blank" aria-label="Twitter">
-                  <TwitterIcon />
-                </IconButton>
-                <IconButton href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
-                  <LinkedInIcon />
-                </IconButton>
+            <IconButton onClick={() => handleArrowClick(scrollRef1, 'left')}>
+              <ArrowBackIosIcon />
+            </IconButton>
+            <Box
+              sx={{
+                height: '100%',
+                overflowX: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+              }}
+              ref={scrollRef1}
+            >
+              <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
+                {items.map((item, index) => (
+                  <Card key={index} sx={{ height: '80%', minWidth: 200, mx: 1 }}>
+                    <CardContent>
+                      <Typography variant="h6">{item}</Typography>
+                      <Typography variant="body2" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ullamcorper sapien, ac pulvinar eros pharetra nec. Fusce efficitur felis nec libero fermentum, a cursus risus aliquam.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
               </Box>
             </Box>
-            <Timeline position="alternate">
-              {randomEvents.map((event, index) => (
-                <TimelineItem key={index}>
-                  <TimelineSeparator>
-                    <TimelineDot sx={{ bgcolor: 'primary.main' }}>
-                      <BusinessIcon sx={{ color: 'gray' }} />
-                    </TimelineDot>
-                    {index < randomEvents.length - 1 && <TimelineConnector />}
-                  </TimelineSeparator>
-                  <TimelineContent>
-                    <Typography variant="body1" paragraph>
-                      {event}
-                    </Typography>
-                  </TimelineContent>
-                </TimelineItem>
-              ))}
-            </Timeline>
+            <IconButton onClick={() => handleArrowClick(scrollRef1, 'right')}>
+              <ArrowForwardIosIcon />
+            </IconButton>
           </Box>
-        </Box>
-      </Grid>
+        </Grid>
 
-      {/* Second Row */}
-      <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
-        <Box
-          sx={{
-            p: 2,
-            maxWidth: '1200px',
-            position: 'sticky',
-            top: 0,
-            zIndex: 1,
-            backgroundColor: '#fff',
-          }}
-        >
-          <Typography variant="h4" gutterBottom>
-            Derivational Thinking
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            height: '100%',
-            overflowX: 'auto',
-            display: 'flex',
-            alignItems: 'center',
-            maxWidth: '1200px',
-            p: 2,
-          }}
-          ref={scrollRef1}
-        >
-          <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
-            {items.map((item, index) => (
-              <Card key={index} sx={{ height: '80%', minWidth: 200, mx: 1 }}>
-                <CardContent>
-                  <Typography variant="h6">{item}</Typography>
-                  <Typography variant="body2">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ullamcorper sapien, ac pulvinar eros pharetra nec. Fusce efficitur felis nec libero fermentum, a cursus risus aliquam.
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
+        {/* Third Row */}
+        <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
+        <Typography variant="h4" gutterBottom>
+              Independent Thinking
+            </Typography>
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              maxWidth: '1200px',
+              p: 2,
+            }}
+          >
+            <IconButton onClick={() => handleArrowClick(scrollRef2, 'left')}>
+              <ArrowBackIosIcon />
+            </IconButton>
+            <Box
+              sx={{
+                height: '100%',
+                overflowX: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+              }}
+              ref={scrollRef2}
+            >
+              <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
+                {items.map((item, index) => (
+                  <Card key={index} sx={{ height: '80%', minWidth: 200, mx: 1 }}>
+                    <CardContent>
+                      <Typography variant="h6">{item}</Typography>
+                      <Typography variant="body2" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ullamcorper sapien, ac pulvinar eros pharetra nec. Fusce efficitur felis nec libero fermentum, a cursus risus aliquam.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+            </Box>
+            <IconButton onClick={() => handleArrowClick(scrollRef2, 'right')}>
+              <ArrowForwardIosIcon />
+            </IconButton>
           </Box>
-        </Box>
+        </Grid>
       </Grid>
-
-      {/* Third Row */}
-      <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
-        <Box
-          sx={{
-            p: 2,
-            maxWidth: '1200px',
-            position: 'sticky',
-            top: 0,
-            zIndex: 1,
-            backgroundColor: '#fff',
-          }}
-        >
-          <Typography variant="h4" gutterBottom>
-            Independent Thinking
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            height: '100%',
-            overflowX: 'auto',
-            display: 'flex',
-            alignItems: 'center',
-            maxWidth: '1200px',
-            p: 2,
-          }}
-          ref={scrollRef2}
-        >
-          <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
-            {items.map((item, index) => (
-              <Card key={index} sx={{ height: '80%', minWidth: 200, mx: 1 }}>
-                <CardContent>
-                  <Typography variant="h6">{item}</Typography>
-                  <Typography variant="body2">
-                    Quisque lacinia, nulla nec luctus elementum, libero risus cursus libero, at condimentum orci nulla sed purus. Curabitur in lacus ac lorem interdum vestibulum ut a elit.
-                  </Typography>
-                </CardContent>
-              </Card>
-            ))}
-          </Box>
-        </Box>
-      </Grid>
-    </Grid>
+    </ThemeProvider>
   );
 }
 
