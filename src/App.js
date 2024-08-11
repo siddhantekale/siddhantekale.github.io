@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Grid, Box, Card, CardContent, Typography, Avatar } from '@mui/material';
+import { Grid, Box, Card, CardContent, Typography, Avatar, IconButton } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
 import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
+import BusinessIcon from '@mui/icons-material/Business';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import InstagramIcon from '@mui/icons-material/Instagram';
 
 function App() {
   const [items, setItems] = useState(Array.from({ length: 10 }, (_, i) => `Card ${i + 1}`));
@@ -56,54 +61,65 @@ function App() {
         <Box
           sx={{
             p: 2,
-            backgroundColor: '#f5f5f5',
             maxWidth: '1200px',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            // position: 'sticky',
+            position: 'sticky',
             top: 0,
             zIndex: 1,
-            backgroundColor: '#f5f5f5',
+            backgroundColor: 'transparent', // Removed the gray background
           }}
         >
           <Typography variant="h4" gutterBottom>
             My Story
           </Typography>
-        </Box>
-        <Box
-          sx={{
-            width: '100%',
-            maxWidth: '800px',
-            bgcolor: 'background.paper',
-            flexGrow: 1,
-            overflowX: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            p: 2,
-          }}
-        >
-          <Avatar
-            alt="Placeholder"
-            src="https://via.placeholder.com/150"
-            sx={{ width: 100, height: 100, mb: 2 }}
-          />
-          <Timeline position="alternate">
-            {randomEvents.map((event, index) => (
-              <TimelineItem key={index}>
-                <TimelineSeparator>
-                  <TimelineDot sx={{ bgcolor: 'primary.main' }} />
-                  {index < randomEvents.length - 1 && <TimelineConnector />}
-                </TimelineSeparator>
-                <TimelineContent>
-                  <Typography variant="body1" paragraph>
-                    {event}
-                  </Typography>
-                </TimelineContent>
-              </TimelineItem>
-            ))}
-          </Timeline>
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: '800px',
+              bgcolor: 'background.paper',
+              flexGrow: 1,
+              overflowX: 'auto',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              p: 2,
+            }}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Avatar
+                alt="Placeholder"
+                src="https://via.placeholder.com/150"
+                sx={{ width: 100, height: 100, mr: 2 }}
+              />
+              <Box>
+                <IconButton href="https://twitter.com" target="_blank" aria-label="Twitter">
+                  <TwitterIcon />
+                </IconButton>
+                <IconButton href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                  <LinkedInIcon />
+                </IconButton>
+              </Box>
+            </Box>
+            <Timeline position="alternate">
+              {randomEvents.map((event, index) => (
+                <TimelineItem key={index}>
+                  <TimelineSeparator>
+                    <TimelineDot sx={{ bgcolor: 'primary.main' }}>
+                      <BusinessIcon sx={{ color: 'gray' }} />
+                    </TimelineDot>
+                    {index < randomEvents.length - 1 && <TimelineConnector />}
+                  </TimelineSeparator>
+                  <TimelineContent>
+                    <Typography variant="body1" paragraph>
+                      {event}
+                    </Typography>
+                  </TimelineContent>
+                </TimelineItem>
+              ))}
+            </Timeline>
+          </Box>
         </Box>
       </Grid>
 
