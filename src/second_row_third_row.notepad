@@ -1,0 +1,102 @@
+        {/* Second Row */}
+        <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
+          <Box
+            sx={{
+              p: 2,
+              maxWidth: '1200px',
+              position: 'sticky',
+              top: 0,
+              zIndex: 1,
+              backgroundColor: 'background.paper',
+            }}
+          >
+            <Typography variant="h4" gutterBottom>
+              Derivational Thinking
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              maxWidth: '1200px',
+              p: 2,
+            }}
+          >
+            <IconButton onClick={() => handleArrowClick(scrollRef1, 'left')}>
+              <ArrowBackIosIcon />
+            </IconButton>
+            <Box
+              sx={{
+                height: '100%',
+                overflowX: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+              }}
+              ref={scrollRef1}
+            >
+              <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
+                {items.map((item, index) => (
+                  <Card key={index} sx={{ height: '80%', minWidth: 200, mx: 1 }}>
+                    <CardContent>
+                      <Typography variant="h6">{item}</Typography>
+                      <Typography variant="body2" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ullamcorper sapien, ac pulvinar eros pharetra nec. Fusce efficitur felis nec libero fermentum, a cursus risus aliquam.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+            </Box>
+            <IconButton onClick={() => handleArrowClick(scrollRef1, 'right')}>
+              <ArrowForwardIosIcon />
+            </IconButton>
+          </Box>
+        </Grid>
+
+        {/* Third Row */}
+        <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
+        <Typography variant="h4" gutterBottom>
+              Independent Thinking
+            </Typography>
+          <Box
+            sx={{
+              height: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              maxWidth: '1200px',
+              p: 2,
+            }}
+          >
+            <IconButton onClick={() => handleArrowClick(scrollRef2, 'left')}>
+              <ArrowBackIosIcon />
+            </IconButton>
+            <Box
+              sx={{
+                height: '100%',
+                overflowX: 'auto',
+                display: 'flex',
+                alignItems: 'center',
+                width: '100%',
+              }}
+              ref={scrollRef2}
+            >
+              <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
+                {items.map((item, index) => (
+                  <Card key={index} sx={{ height: '80%', minWidth: 200, mx: 1 }}>
+                    <CardContent>
+                      <Typography variant="h6">{item}</Typography>
+                      <Typography variant="body2" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ullamcorper sapien, ac pulvinar eros pharetra nec. Fusce efficitur felis nec libero fermentum, a cursus risus aliquam.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
+              </Box>
+            </Box>
+            <IconButton onClick={() => handleArrowClick(scrollRef2, 'right')}>
+              <ArrowForwardIosIcon />
+            </IconButton>
+          </Box>
+        </Grid>

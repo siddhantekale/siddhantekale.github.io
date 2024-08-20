@@ -17,7 +17,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const [lightMode, setLightMode] = useState(false);
   const [items, setItems] = useState(Array.from({ length: 10 }, (_, i) => `Card ${i + 1}`));
 
   const handleScroll = (containerRef) => {
@@ -55,44 +55,52 @@ function App() {
 
   const randomEvents = [
     {
-      company: "Company A",
-      description: "Led a team of engineers to develop a cloud-based solution.",
-      icon: AddCircleIcon,
+      company: "Palantir Technologies",
+      description: "Current Employer",
+      icon: BusinessIcon,
+      fontSize: 24,
     },
     {
       company: "",
-      description: "Currently lead a team of engineers and compliance specialists who develop Palantir's GxP platform for clinical use-cases ranging from site-selection to RWE analysis.",
+      description: "[2021-2024] Currently lead a team of engineers and compliance specialists who develop Palantir's GxP platform for clinical use-cases ranging from site-selection to RWE analysis.",
       icon: AddCircleIcon,
+      fontSize: 2,
     },
     {
       company: "",
-      description: "Currently lead a team of extremely talented architects and account managers to build out product demos (Titan Industries) that show end to end product capability for Palantir's AI Platform.",
+      description: "[2021-2024] Currently lead a team of extremely talented architects and account managers to build product demos (Titan Industries) that show end to end product capability for Palantir's AI Platform.",
       icon: AddCircleIcon,
+      fontSize: 2,
     },
     {
       company: "",
-      description: "Developed applications for the NHS at the brink of and through COVID-19 that allowed for equitable allocation of ICU nad PPE equipment.",
+      description: "[2020-2021] Developed applications for the NHS at the brink of and through COVID-19 that allowed for equitable allocation of ICU nad PPE equipment.",
       icon: AddCircleIcon,
+      fontSize: 2,
     },
     {
       company: "",
-      description: "Developed User applications that are currently thwarting nation state cyber-security attacks.",
+      description: "[2019-2020] Developed User applications that are currently thwarting nation state cyber-security attacks.",
       icon: AddCircleIcon,
+      fontSize: 2,
     },
     {
       company: "",
-      description: "Wrote data pipelines and models that detected fraud amongst trillion row transaction datasets.",
+      description: "[2019-2020] Wrote data pipelines and models that detected fraud amongst trillion row transaction datasets.",
       icon: AddCircleIcon,
+      fontSize: 2,
     },
     {
       company: "Digital Control Inc.",
       description: "Programmed a custom transmitter / reciever for directional drilling.",
       icon: BusinessIcon,
+      fontSize: 24,
     },
     {
       company: "Helitrak Inc.",
       description: "Programmed Autopilots and Safety Trigger for the Collective for R22 and R44 Helicopters.",
       icon: BusinessIcon,
+      fontSize: 24,
     },
   ];
 
@@ -116,7 +124,7 @@ function App() {
   });
 
   return (
-    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
+    <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
       <CssBaseline />
       <Grid
         container
@@ -126,10 +134,10 @@ function App() {
       >
         {/* Dark Mode Toggle */}
         <Grid item xs={12} style={{ width: '100%', textAlign: 'right', padding: '10px' }}>
-          <IconButton onClick={() => setDarkMode(!darkMode)} color="inherit">
-            {darkMode ? <WbSunnyIcon /> : <Brightness2Icon />}
+          <IconButton onClick={() => setLightMode(!lightMode)} color="inherit">
+            {lightMode ? <Brightness2Icon /> : <WbSunnyIcon />}
           </IconButton>
-          <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+          <Switch checked={lightMode} onChange={() => setLightMode(!lightMode)} />
         </Grid>
 
         {/* First Row */}
@@ -150,6 +158,9 @@ function App() {
             <Typography variant="h4" gutterBottom>
               Siddhant Ekale
             </Typography>
+            <Typography variant="h8" gutterBottom>
+              Senior Architect | Engineer | Nomad
+            </Typography>
             <Box
               sx={{
                 width: '100%',
@@ -166,14 +177,14 @@ function App() {
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
                 <Avatar
                   alt="Placeholder"
-                  src="https://via.placeholder.com/150"
-                  sx={{ width: 100, height: 100, mr: 2 }}
+                  src="/sidekale.png"
+                  sx={{ width: 150, height: 150, mr: 2 }}
                 />
                 <Box>
-                  <IconButton href="https://twitter.com" target="_blank" aria-label="Twitter">
+                  <IconButton href="https://x.com/sidekale" target="_blank" aria-label="Twitter">
                     <TwitterIcon />
                   </IconButton>
-                  <IconButton href="https://linkedin.com" target="_blank" aria-label="LinkedIn">
+                  <IconButton href="https://www.linkedin.com/in/siddhantekale/" target="_blank" aria-label="LinkedIn">
                     <LinkedInIcon />
                   </IconButton>
                 </Box>
@@ -183,15 +194,15 @@ function App() {
                   <TimelineItem key={index}>
                     <TimelineSeparator>
                       <TimelineDot sx={{ bgcolor: 'primary.main' }}>
-                        <event.icon sx={{ color: 'white', fontSize: 10 }} />
+                        <event.icon sx={{ color: 'white', fontSize: event.fontSize }} />
                       </TimelineDot>
                       {index < randomEvents.length - 1 && <TimelineConnector />}
                     </TimelineSeparator>
                     <TimelineContent>
-                      <Typography variant="h6" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                      <Typography variant="h6" sx={{ color: lightMode ? '#000000': '#ffffff'  }}>
                         {event.company}
                       </Typography>
-                      <Typography variant="body2" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
+                      <Typography variant="body2" sx={{ color: lightMode ? '#000000': '#ffffff' }}>
                         {event.description}
                       </Typography>
                     </TimelineContent>
@@ -199,109 +210,6 @@ function App() {
                 ))}
               </Timeline>
             </Box>
-          </Box>
-        </Grid>
-
-        {/* Second Row */}
-        <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
-          <Box
-            sx={{
-              p: 2,
-              maxWidth: '1200px',
-              position: 'sticky',
-              top: 0,
-              zIndex: 1,
-              backgroundColor: 'background.paper',
-            }}
-          >
-            <Typography variant="h4" gutterBottom>
-              Derivational Thinking
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              maxWidth: '1200px',
-              p: 2,
-            }}
-          >
-            <IconButton onClick={() => handleArrowClick(scrollRef1, 'left')}>
-              <ArrowBackIosIcon />
-            </IconButton>
-            <Box
-              sx={{
-                height: '100%',
-                overflowX: 'auto',
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%',
-              }}
-              ref={scrollRef1}
-            >
-              <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
-                {items.map((item, index) => (
-                  <Card key={index} sx={{ height: '80%', minWidth: 200, mx: 1 }}>
-                    <CardContent>
-                      <Typography variant="h6">{item}</Typography>
-                      <Typography variant="body2" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ullamcorper sapien, ac pulvinar eros pharetra nec. Fusce efficitur felis nec libero fermentum, a cursus risus aliquam.
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                ))}
-              </Box>
-            </Box>
-            <IconButton onClick={() => handleArrowClick(scrollRef1, 'right')}>
-              <ArrowForwardIosIcon />
-            </IconButton>
-          </Box>
-        </Grid>
-
-        {/* Third Row */}
-        <Grid item xs={12} style={{ flex: 1, display: 'grid', gridTemplateRows: 'auto 1fr' }}>
-        <Typography variant="h4" gutterBottom>
-              Independent Thinking
-            </Typography>
-          <Box
-            sx={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              maxWidth: '1200px',
-              p: 2,
-            }}
-          >
-            <IconButton onClick={() => handleArrowClick(scrollRef2, 'left')}>
-              <ArrowBackIosIcon />
-            </IconButton>
-            <Box
-              sx={{
-                height: '100%',
-                overflowX: 'auto',
-                display: 'flex',
-                alignItems: 'center',
-                width: '100%',
-              }}
-              ref={scrollRef2}
-            >
-              <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
-                {items.map((item, index) => (
-                  <Card key={index} sx={{ height: '80%', minWidth: 200, mx: 1 }}>
-                    <CardContent>
-                      <Typography variant="h6">{item}</Typography>
-                      <Typography variant="body2" sx={{ color: darkMode ? '#ffffff' : '#000000' }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vehicula ullamcorper sapien, ac pulvinar eros pharetra nec. Fusce efficitur felis nec libero fermentum, a cursus risus aliquam.
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                ))}
-              </Box>
-            </Box>
-            <IconButton onClick={() => handleArrowClick(scrollRef2, 'right')}>
-              <ArrowForwardIosIcon />
-            </IconButton>
           </Box>
         </Grid>
       </Grid>
