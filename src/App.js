@@ -15,10 +15,20 @@ import WbSunnyIcon from '@mui/icons-material/WbSunny';
 import Brightness2Icon from '@mui/icons-material/Brightness2';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Link } from '@mui/material';
+import { CardMedia } from '@mui/material';
 
 function App() {
   const [lightMode, setLightMode] = useState(false);
-  const [items, setItems] = useState(Array.from({ length: 10 }, (_, i) => `Card ${i + 1}`));
+  const [items, setItems] = useState(
+    Array.from(
+      { length: 4 }, (_, i) => ({
+        title: `Card ${i + 1}`,
+        description: `Description for Card ${i + 1}`,
+        imagePath: `ambiguity_in_compute_science_projects.jpeg`, // replace with your actual image paths
+      })
+    )
+  );
 
   const handleScroll = (containerRef) => {
     const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
@@ -212,6 +222,42 @@ function App() {
             </Box>
           </Box>
         </Grid>
+        <Typography variant="h4" gutterBottom>
+              Thoughts
+            </Typography>
+            <Grid item xs={12}>
+            <Grid
+              container
+              spacing={2}
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              sx={{ overflowX: 'auto', p: 2, maxWidth: '1200px', flexWrap: 'nowrap' }}
+            >
+            {items.map((item, index) => (
+              <Grid item xs={12} sm={6} md={4} lg={3} key={index}>
+                <Link href={`/${item.title.replace(' ', '-').toLowerCase()}`} target="_blank" style={{ textDecoration: 'none' }}>
+                  <Card sx={{ minWidth: 275 }}>
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={item.imagePath}
+                      alt={item.title}
+                    />
+                    <CardContent>
+                      <Typography variant="h5" component="div">
+                        {item.title}
+                      </Typography>
+                      <Typography variant="body2">
+                        {item.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Link>
+              </Grid>
+              ))}
+            </Grid>
+          </Grid>
       </Grid>
     </ThemeProvider>
   );
