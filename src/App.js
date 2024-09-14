@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import { CssBaseline, Grid, Box, Card, CardContent, Typography, Avatar, IconButton, Switch, AppBar, Toolbar, Button } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
+import { CssBaseline, Grid, Box, IconButton, Switch, AppBar, Toolbar, Button, Drawer, List, ListItem, ListItemIcon, ListItemText, Typography, Avatar } from '@mui/material';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -23,36 +24,36 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
+import useMediaQuery from '@mui/material/useMediaQuery';
+// ... other existing imports ...
 
 
 function App() {
   const [lightMode, setLightMode] = useState(false);
-  const [items, setItems] = useState([
-    {
-      title: 'Ambiguity - A Recipe 1',
-      description: 'Description for Card 1',
-      imagePath: 'ambiguity_in_compute_science_projects.jpeg', // replace with your actual image path
-      url: '/ambiguity-thought' // Updated URL for the first card
-    },
-    {
-      title: 'Ambiguity - A Recipe 2',
-      description: 'Description for Card 2',
-      imagePath: 'ambiguity_in_compute_science_projects.jpeg', // replace with your actual image path
-      url: '/card-2'
-    },
-    {
-      title: 'Ambiguity - A Recipe 3',
-      description: 'Description for Card 3',
-      imagePath: 'ambiguity_in_compute_science_projects.jpeg', // replace with your actual image path
-      url: '/card-3'
-    },
-    {
-      title: 'Ambiguity - A Recipe 4',
-      description: 'Description for Card 4',
-      imagePath: 'ambiguity_in_compute_science_projects.jpeg', // replace with your actual image path
-      url: '/card-4'
-    },
-  ]);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [items, setItems] = useState([]); // Add this line
+  const isMobile = useMediaQuery('(max-width:600px)');
+
+  // ... other existing state and functions ...
+
+  const menuItems = [
+    { text: 'About Me', icon: <PersonIcon />, path: '/' },
+    { text: 'EB-1 Journey', icon: <FlightTakeoffIcon />, path: '/eb1-journey' },
+    { text: 'Thoughts', icon: <LightbulbIcon />, path: '/thoughts' },
+  ];
+
+  const drawer = (
+    <Box onClick={() => setDrawerOpen(false)}>
+      <List>
+        {menuItems.map((item) => (
+          <ListItem button key={item.text} component={RouterLink} to={item.path}>
+            <ListItemIcon sx={{ color: lightMode ? 'black' : 'white' }}>{item.icon}</ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
 
   const handleScroll = (containerRef) => {
     const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
@@ -170,35 +171,35 @@ function App() {
           }}
         >
           <Toolbar>
-            <Box sx={{ flexGrow: 1, display: 'flex' }}>
-              <Button 
-                color="inherit" 
-                component={RouterLink} 
-                to="/" 
-                startIcon={<PersonIcon />}
-                sx={{ color: lightMode ? 'black' : 'white' }}
-              >
-                About Me
-              </Button>
-              <Button 
-                color="inherit" 
-                component={RouterLink} 
-                to="/thoughts" 
-                startIcon={<LightbulbIcon />}
-                sx={{ color: lightMode ? 'black' : 'white' }}
-              >
-                Thoughts
-              </Button>
-              <Button 
-                color="inherit" 
-                component={RouterLink} 
-                to="/eb1-journey" 
-                startIcon={<FlightTakeoffIcon />}
-                sx={{ color: lightMode ? 'black' : 'white' }}
-              >
-                EB-1 Journey
-              </Button>
-            </Box>
+            {isMobile ? (
+              <>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={() => setDrawerOpen(true)}
+                  sx={{ mr: 2, color: lightMode ? 'black' : 'white' }}
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Box sx={{ flexGrow: 1 }} />
+              </>
+            ) : (
+              <Box sx={{ flexGrow: 1, display: 'flex' }}>
+                {menuItems.map((item) => (
+                  <Button 
+                    key={item.text}
+                    color="inherit" 
+                    component={RouterLink} 
+                    to={item.path} 
+                    startIcon={item.icon}
+                    sx={{ color: lightMode ? 'black' : 'white' }}
+                  >
+                    {item.text}
+                  </Button>
+                ))}
+              </Box>
+            )}
             <IconButton 
               onClick={() => setLightMode(!lightMode)} 
               color="inherit"
@@ -213,6 +214,13 @@ function App() {
             />
           </Toolbar>
         </AppBar>
+        <Drawer
+          anchor="left"
+          open={drawerOpen}
+          onClose={() => setDrawerOpen(false)}
+        >
+          {drawer}
+        </Drawer>
         <Routes>
           <Route path="/ambiguity-thought" element={<AmbiguityThought />} />
           <Route path="/" element={
