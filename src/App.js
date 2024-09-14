@@ -245,11 +245,15 @@ function App() {
                     backgroundColor: 'transparent',
                   }}
                 >
-                  <Typography variant="h4" gutterBottom>
+                  <Typography variant="h4" gutterBottom sx={{ textAlign: 'center', fontWeight: 'bold', letterSpacing: 1 }}>
                     Siddhant Ekale
                   </Typography>
-                  <Typography variant="h8" gutterBottom>
+                  <Typography variant="h6" gutterBottom sx={{ textAlign: 'center', letterSpacing: 1 }}>
                     Senior Architect | Engineer
+                  </Typography>
+                  <Typography variant="subtitle1" gutterBottom sx={{ textAlign: 'center', fontStyle: 'italic', maxWidth: '600px', margin: '0 auto' }}>
+                    The wizard who makes computers do amazing tricks to help doctors,
+                    <br />catch bad guys, and solve really big problems
                   </Typography>
                   <Box
                     sx={{
