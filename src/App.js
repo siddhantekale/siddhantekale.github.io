@@ -87,6 +87,25 @@ function App() {
       });
     }
   };
+  
+  const [displayedText, setDisplayedText] = useState('');
+  const fullName = 'Siddhant Ekale';
+
+  useEffect(() => {
+    let index = 0;
+    const intervalId = setInterval(() => {
+      setDisplayedText((prev) => {
+        if (index < fullName.length) {
+          index++;
+          return fullName.slice(0, index);
+        }
+        clearInterval(intervalId);
+        return prev;
+      });
+    }, 150); // Adjust this value to control the speed of the animation
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   const randomEvents = [
     {
@@ -94,6 +113,7 @@ function App() {
       description: "Current Employer",
       icon: BusinessIcon,
       fontSize: 24,
+      logo: lightMode ? "/palantir_logo_light_mode.png" : "/palantir_logo_dark_mode.jpeg",
     },
     {
       company: "",
@@ -130,12 +150,14 @@ function App() {
       description: "Programmed a custom transmitter / reciever for directional drilling.",
       icon: BusinessIcon,
       fontSize: 24,
+      logo: "/digital_control_incorporated_logo.jpeg"
     },
     {
       company: "Helitrak Inc.",
       description: "Programmed Autopilots and Safety Trigger for the Collective for R22 and R44 Helicopters.",
       icon: BusinessIcon,
       fontSize: 24,
+      logo: "/helitrak.png"
     },
   ];
 
@@ -252,7 +274,7 @@ function App() {
                     Senior Architect | Engineer
                   </Typography>
                   <Typography variant="subtitle1" gutterBottom sx={{ textAlign: 'center', fontStyle: 'italic', maxWidth: '600px', margin: '0 auto' }}>
-                    The wizard who makes computers do amazing tricks to help doctors,
+                    The tech maverick who makes computers help doctors,
                     <br />catch bad guys, and solve really big problems
                   </Typography>
                   <Box
@@ -287,8 +309,22 @@ function App() {
                       {randomEvents.map((event, index) => (
                         <TimelineItem key={index}>
                           <TimelineSeparator>
-                            <TimelineDot sx={{ bgcolor: 'primary.main' }}>
-                              <event.icon sx={{ color: 'white', fontSize: event.fontSize }} />
+                            <TimelineDot sx={{ bgcolor: 'primary.main', padding: 0, overflow: 'hidden' }}>
+                              {event.logo ? (
+                                <CardMedia
+                                  component="img"
+                                  src={event.logo}
+                                  alt={event.company}
+                                  sx={{
+                                    width: 40,
+                                    height: 40,
+                                    objectFit: 'cover',
+                                    display: 'block',
+                                  }}
+                                />
+                              ) : (
+                                <event.icon sx={{ color: 'white', fontSize: event.fontSize, p: 1 }} />
+                              )}
                             </TimelineDot>
                             {index < randomEvents.length - 1 && <TimelineConnector />}
                           </TimelineSeparator>
