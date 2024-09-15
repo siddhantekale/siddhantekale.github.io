@@ -27,14 +27,14 @@ import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Thoughts from './Thoughts';
 import EB1Journey from './EB1Journey';
-// ... other existing imports ...
-
+import { useTheme } from '@mui/material/styles';
 
 function App() {
-  const [lightMode, setLightMode] = useState(false);
+  const [lightMode, setLightMode] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [items, setItems] = useState([]); // Add this line
   const isMobile = useMediaQuery('(max-width:600px)');
+  const theme = useTheme();
 
   // ... other existing state and functions ...
 
@@ -277,9 +277,25 @@ function App() {
                   <Typography variant="h6" gutterBottom sx={{ textAlign: 'center', letterSpacing: 1 }}>
                     Senior Architect | Engineer
                   </Typography>
-                  <Typography variant="subtitle1" gutterBottom sx={{ textAlign: 'center', fontStyle: 'italic', maxWidth: '600px', margin: '0 auto' }}>
+                  <Typography 
+                    variant="subtitle1" 
+                    gutterBottom 
+                    sx={{ 
+                      textAlign: 'center', 
+                      fontStyle: 'italic', 
+                      maxWidth: '600px', 
+                      margin: '0 auto',
+                      [theme.breakpoints.down('sm')]: {
+                        fontSize: '0.875rem',
+                        '& br': {
+                          display: 'none',
+                        }
+                      },
+                    }}
+                  >
                     The tech maverick who makes computers help doctors,
-                    <br />catch bad guys, and solve really big problems
+                    <br />
+                    catch bad guys, and solve really big problems
                   </Typography>
                   <Box
                     sx={{
