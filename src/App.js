@@ -25,6 +25,8 @@ import PersonIcon from '@mui/icons-material/Person';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import useMediaQuery from '@mui/material/useMediaQuery';
+import Thoughts from './Thoughts';
+import EB1Journey from './EB1Journey';
 // ... other existing imports ...
 
 
@@ -216,6 +218,7 @@ function App() {
                     to={item.path} 
                     startIcon={item.icon}
                     sx={{ color: lightMode ? 'black' : 'white' }}
+                    onClick={() => console.log('Navigating to:', item.path)}
                   >
                     {item.text}
                   </Button>
@@ -244,7 +247,8 @@ function App() {
           {drawer}
         </Drawer>
         <Routes>
-          <Route path="/ambiguity-thought" element={<AmbiguityThought />} />
+          <Route path="/thoughts" element={<Thoughts />} />
+          <Route path="/eb1-journey" element={<EB1Journey />} />
           <Route path="/" element={
             <Grid
               container
