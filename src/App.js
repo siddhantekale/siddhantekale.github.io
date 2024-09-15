@@ -38,8 +38,8 @@ function App() {
 
   const menuItems = [
     { text: 'About Me', icon: <PersonIcon />, path: '/' },
-    { text: 'EB-1 Journey', icon: <FlightTakeoffIcon />, path: '/eb1-journey' },
     { text: 'Thoughts', icon: <LightbulbIcon />, path: '/thoughts' },
+    { text: 'EB-1 Journey', icon: <FlightTakeoffIcon />, path: '/eb1-journey' },
   ];
 
   const drawer = (
@@ -107,7 +107,7 @@ function App() {
     return () => clearInterval(intervalId);
   }, []);
 
-  const randomEvents = [
+  const workEvents = [
     {
       company: "Palantir Technologies",
       description: "Current Employer",
@@ -305,40 +305,74 @@ function App() {
                         </IconButton>
                       </Box>
                     </Box>
-                    <Timeline position="alternate">
-                      {randomEvents.map((event, index) => (
-                        <TimelineItem key={index}>
-                          <TimelineSeparator>
-                            <TimelineDot sx={{ bgcolor: 'primary.main', padding: 0, overflow: 'hidden' }}>
-                              {event.logo ? (
-                                <CardMedia
-                                  component="img"
-                                  src={event.logo}
-                                  alt={event.company}
-                                  sx={{
-                                    width: 40,
-                                    height: 40,
-                                    objectFit: 'cover',
-                                    display: 'block',
-                                  }}
-                                />
-                              ) : (
-                                <event.icon sx={{ color: 'white', fontSize: event.fontSize, p: 1 }} />
-                              )}
-                            </TimelineDot>
-                            {index < randomEvents.length - 1 && <TimelineConnector />}
-                          </TimelineSeparator>
-                          <TimelineContent>
-                            <Typography variant="h6" sx={{ color: lightMode ? '#000000': '#ffffff'  }}>
-                              {event.company}
-                            </Typography>
-                            <Typography variant="body2" sx={{ color: lightMode ? '#000000': '#ffffff' }}>
-                              {event.description}
-                            </Typography>
-                          </TimelineContent>
-                        </TimelineItem>
-                      ))}
-                    </Timeline>
+                    <Box sx={{ display: 'flex', alignItems: 'left', mb: 2, width: '100%' }}>
+                      <Timeline position="right" sx={{ width: '100%' }}>
+                        {workEvents.map((event, index) => (
+                          <TimelineItem key={index} sx={{ '&:before': { display: 'none' } }}>
+                            <TimelineSeparator>
+                              <TimelineDot 
+                                sx={{ 
+                                  bgcolor: 'transparent', 
+                                  padding: 0, 
+                                  overflow: 'visible',
+                                  width: 40, 
+                                  height: 40, 
+                                  display: 'flex', 
+                                  justifyContent: 'center', 
+                                  alignItems: 'center',
+                                  boxShadow: 'none',
+                                }}
+                              >
+                                {event.logo ? (
+                                  <Box
+                                    sx={{
+                                      width: 40,
+                                      height: 40,
+                                      borderRadius: '50%',
+                                      overflow: 'hidden',
+                                    }}
+                                  >
+                                    <CardMedia
+                                      component="img"
+                                      src={event.logo}
+                                      alt={event.company}
+                                      sx={{
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: 'cover',
+                                      }}
+                                    />
+                                  </Box>
+                                ) : (
+                                  <Box
+                                    sx={{
+                                      width: 24,
+                                      height: 24,
+                                      display: 'flex',
+                                      justifyContent: 'center',
+                                      alignItems: 'center',
+                                      bgcolor: 'primary.main',
+                                      borderRadius: '50%',
+                                    }}
+                                  >
+                                    <event.icon sx={{ color: 'white', fontSize: 16 }} />
+                                  </Box>
+                                )}
+                              </TimelineDot>
+                              {index < workEvents.length - 1 && <TimelineConnector />}
+                            </TimelineSeparator>
+                            <TimelineContent sx={{ py: '12px', px: 2 }}>
+                              <Typography variant="h6" sx={{ color: lightMode ? '#000000': '#ffffff' }}>
+                                {event.company}
+                              </Typography>
+                              <Typography variant="body2" sx={{ color: lightMode ? '#000000': '#ffffff' }}>
+                                {event.description}
+                              </Typography>
+                            </TimelineContent>
+                          </TimelineItem>
+                        ))}
+                      </Timeline>
+                    </Box>
                   </Box>
                 </Box>
               </Grid>
