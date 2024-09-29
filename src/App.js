@@ -19,7 +19,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import AmbiguityThought from './AmbiguityThought';
 import { Link as RouterLink } from 'react-router-dom';
 import { CardMedia } from '@mui/material';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 // Add these new imports for the icons
 import PersonIcon from '@mui/icons-material/Person';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
@@ -29,14 +29,15 @@ import Thoughts from './Thoughts';
 import EB1Journey from './EB1Journey';
 import { useTheme } from '@mui/material/styles';
 
-function App() {
+function AppContent() {
   const [lightMode, setLightMode] = useState(true);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [items, setItems] = useState([]); // Add this line
+  const [items, setItems] = useState([]);
   const isMobile = useMediaQuery('(max-width:600px)');
   const theme = useTheme();
+  const location = useLocation();
 
-  // ... other existing state and functions ...
+  // ... rest of the component logic ...
 
   const menuItems = [
     { text: 'About Me', icon: <PersonIcon />, path: '/' },
@@ -183,8 +184,7 @@ function App() {
   });
 
   return (
-    <Router>
-      <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
+    <ThemeProvider theme={lightMode ? lightTheme : darkTheme}>
       <CssBaseline />
       <AppBar 
           position="static" 
@@ -217,8 +217,17 @@ function App() {
                     component={RouterLink} 
                     to={item.path} 
                     startIcon={item.icon}
-                    sx={{ color: lightMode ? 'black' : 'white' }}
-                    onClick={() => console.log('Navigating to:', item.path)}
+                    selected={location.pathname === item.path}
+                    sx={{ 
+                      color: lightMode ? 'black' : 'white',
+                      '&.Mui-selected': {
+                        backgroundColor: lightMode ? 'rgba(0, 0, 0, 0.1)' : 'rgba(255, 255, 255, 0.1)',
+                      },
+                      '&:hover': {
+                        backgroundColor: lightMode ? 'rgba(0, 0, 0, 0.2)' : 'rgba(255, 255, 255, 0.2)',
+                      },
+                      mx: 2, // Add horizontal margin
+                    }}
                   >
                     {item.text}
                   </Button>
@@ -230,7 +239,7 @@ function App() {
               color="inherit"
               sx={{ color: lightMode ? 'black' : 'white' }}
             >
-              {lightMode ? <Brightness2Icon /> : <WbSunnyIcon />}
+              {lightMode ? <WbSunnyIcon /> : <Brightness2Icon />}
             </IconButton>
             <Switch 
               checked={lightMode} 
@@ -448,6 +457,13 @@ function App() {
           } />
         </Routes>
       </ThemeProvider>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
     </Router>
   );
 }
